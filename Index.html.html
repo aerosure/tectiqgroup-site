@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>TECTIQ Group | At the Faultline of Risk and Resilience</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400;500&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --navy: #0D1F35;
+    --navy-mid: #1B3A5C;
+    --slate: #2C4A6E;
+    --fault: #C0392B;
+    --fault-light: #E74C3C;
+    --sand: #F5F0E8;
+    --warm-white: #FAFAF7;
+    --gray: #8A9BAE;
+    --gray-light: #D4DCE6;
+    --text: #1A2B3C;
+    --text-light: #4A6080;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Mono', monospace;
+    background: var(--warm-white);
+    color: var(--text);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.5rem 4rem;
+    background: rgba(13,31,53,0.97);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(192,57,43,0.3);
+  }
+
+  .nav-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 1.4rem;
+    color: var(--warm-white);
+    letter-spacing: 0.15em;
+    text-decoration: none;
+  }
+
+  .nav-logo span { color: var(--fault); }
+
+  .nav-links {
+    display: flex; gap: 2.5rem; list-style: none;
+  }
+
+  .nav-links a {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gray-light);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--fault-light); }
+
+  /* ── HERO ── */
+  #home {
+    min-height: 100vh;
+    background: var(--navy);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    overflow: hidden;
+    padding-top: 80px;
+  }
+
+  .hero-grid-overlay {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(192,57,43,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(192,57,43,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+  }
+
+  .hero-fault-line {
+    position: absolute;
+    top: 0; bottom: 0;
+    left: 50%;
+    width: 1px;
+    background: linear-gradient(to bottom, transparent, var(--fault) 30%, var(--fault) 70%, transparent);
+    opacity: 0.4;
+  }
+
+  .hero-left {
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 6rem 5rem 6rem 6rem;
+    position: relative; z-index: 2;
+  }
+
+  .hero-eyebrow {
+    font-size: 0.68rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--fault);
+    margin-bottom: 2rem;
+    display: flex; align-items: center; gap: 1rem;
+  }
+
+  .hero-eyebrow::before {
+    content: '';
+    display: block; width: 40px; height: 1px;
+    background: var(--fault);
+  }
+
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3rem, 5vw, 5.5rem);
+    font-weight: 300;
+    line-height: 1.05;
+    color: var(--warm-white);
+    margin-bottom: 1rem;
+  }
+
+  .hero-title em {
+    font-style: italic;
+    color: var(--gray);
+  }
+
+  .hero-title strong {
+    font-weight: 600;
+    color: var(--warm-white);
+    display: block;
+  }
+
+  .hero-tagline {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    color: var(--gray);
+    margin: 2rem 0 3rem;
+    padding-left: 1rem;
+    border-left: 2px solid var(--fault);
+    line-height: 1.8;
+  }
+
+  .hero-cta {
+    display: inline-flex; align-items: center; gap: 1rem;
+    background: var(--fault);
+    color: white;
+    text-decoration: none;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 1rem 2rem;
+    transition: background 0.2s, gap 0.2s;
+    width: fit-content;
+  }
+
+  .hero-cta:hover { background: var(--fault-light); gap: 1.5rem; }
+
+  .hero-right {
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 6rem 6rem 6rem 4rem;
+    position: relative; z-index: 2;
+    border-left: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .hero-stat-block {
+    display: flex; flex-direction: column; gap: 3rem;
+  }
+
+  .hero-stat {
+    opacity: 0;
+    animation: fadeUp 0.8s forwards;
+  }
+
+  .hero-stat:nth-child(1) { animation-delay: 0.3s; }
+  .hero-stat:nth-child(2) { animation-delay: 0.5s; }
+  .hero-stat:nth-child(3) { animation-delay: 0.7s; }
+
+  .hero-stat-number {
+    font-family: 'Syne', sans-serif;
+    font-size: 3rem;
+    font-weight: 800;
+    color: var(--warm-white);
+    line-height: 1;
+  }
+
+  .hero-stat-number span { color: var(--fault); }
+
+  .hero-stat-label {
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gray);
+    margin-top: 0.5rem;
+  }
+
+  .hero-stat-desc {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1rem;
+    color: rgba(255,255,255,0.4);
+    margin-top: 0.3rem;
+    font-style: italic;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── SECTION BASE ── */
+  section { padding: 8rem 6rem; }
+
+  .section-eyebrow {
+    font-size: 0.65rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--fault);
+    display: flex; align-items: center; gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .section-eyebrow::after {
+    content: '';
+    display: block; flex: 1; max-width: 60px; height: 1px;
+    background: var(--fault);
+  }
+
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.2rem, 4vw, 3.8rem);
+    font-weight: 300;
+    line-height: 1.1;
+    color: var(--navy);
+    margin-bottom: 1.5rem;
+  }
+
+  .section-title em { font-style: italic; color: var(--slate); }
+
+  .section-body {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.15rem;
+    line-height: 1.85;
+    color: var(--text-light);
+    max-width: 640px;
+  }
+
+  /* ── ABOUT ── */
+  #about {
+    background: var(--sand);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: center;
+  }
+
+  .about-left {}
+
+  .about-right {
+    display: flex; flex-direction: column; gap: 2rem;
+  }
+
+  .about-pillar {
+    padding: 1.8rem 2rem;
+    background: white;
+    border-left: 3px solid var(--fault);
+    box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+  }
+
+  .about-pillar-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--fault);
+    margin-bottom: 0.5rem;
+  }
+
+  .about-pillar-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: var(--text);
+  }
+
+  /* ── WHAT WE DO ── */
+  #services {
+    background: var(--navy);
+    color: var(--warm-white);
+  }
+
+  #services .section-title { color: var(--warm-white); }
+  #services .section-title em { color: var(--gray); }
+  #services .section-body { color: var(--gray); }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: rgba(255,255,255,0.06);
+    margin-top: 4rem;
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .service-card {
+    background: var(--navy);
+    padding: 3rem 2.5rem;
+    transition: background 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .service-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--fault);
+    transform: scaleX(0);
+    transition: transform 0.3s;
+    transform-origin: left;
+  }
+
+  .service-card:hover { background: var(--navy-mid); }
+  .service-card:hover::before { transform: scaleX(1); }
+
+  .service-number {
+    font-family: 'Syne', sans-serif;
+    font-size: 3rem;
+    font-weight: 800;
+    color: rgba(192,57,43,0.15);
+    line-height: 1;
+    margin-bottom: 1.5rem;
+  }
+
+  .service-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--warm-white);
+    letter-spacing: 0.05em;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+  }
+
+  .service-body {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.05rem;
+    line-height: 1.75;
+    color: var(--gray);
+  }
+
+  /* ── PHILOSOPHY ── */
+  #philosophy {
+    background: var(--warm-white);
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 8rem;
+    align-items: start;
+  }
+
+  .philosophy-left {
+    position: sticky; top: 120px;
+  }
+
+  .philosophy-right {
+    display: flex; flex-direction: column; gap: 4rem;
+  }
+
+  .philosophy-block {}
+
+  .philosophy-block-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--navy);
+    margin-bottom: 1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--gray-light);
+  }
+
+  .philosophy-block-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.15rem;
+    line-height: 1.85;
+    color: var(--text-light);
+  }
+
+  /* ── PULL QUOTE ── */
+  .pull-quote-section {
+    background: var(--navy-mid);
+    padding: 6rem;
+    text-align: center;
+  }
+
+  .pull-quote {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.6rem, 3vw, 2.8rem);
+    font-weight: 300;
+    font-style: italic;
+    color: var(--warm-white);
+    line-height: 1.4;
+    max-width: 900px;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  .pull-quote::before {
+    content: '"';
+    font-size: 8rem;
+    color: var(--fault);
+    opacity: 0.3;
+    position: absolute;
+    top: -3rem; left: -2rem;
+    font-family: 'Cormorant Garamond', serif;
+    line-height: 1;
+  }
+
+  .pull-quote-attr {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--fault);
+    margin-top: 2rem;
+  }
+
+  /* ── INSIGHTS ── */
+  #insights {
+    background: var(--sand);
+  }
+
+  .insights-header {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    margin-bottom: 4rem;
+  }
+
+  .insights-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 1.5rem;
+  }
+
+  .insight-card {
+    background: white;
+    padding: 2.5rem;
+    border-top: 3px solid transparent;
+    transition: border-color 0.3s, transform 0.3s;
+    cursor: pointer;
+  }
+
+  .insight-card:hover {
+    border-color: var(--fault);
+    transform: translateY(-4px);
+  }
+
+  .insight-card.featured {
+    grid-row: span 2;
+    background: var(--navy);
+    color: white;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 3rem;
+    position: relative;
+    overflow: hidden;
+    min-height: 480px;
+  }
+
+  .insight-card.featured::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(13,31,53,0.98) 40%, transparent);
+  }
+
+  .insight-card.featured > * { position: relative; z-index: 1; }
+
+  .insight-tag {
+    font-size: 0.62rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--fault);
+    margin-bottom: 1rem;
+  }
+
+  .insight-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem;
+    font-weight: 400;
+    line-height: 1.3;
+    color: var(--navy);
+    margin-bottom: 0.75rem;
+  }
+
+  .insight-card.featured .insight-title {
+    font-size: 1.9rem;
+    color: var(--warm-white);
+  }
+
+  .insight-excerpt {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--text-light);
+    margin-bottom: 1.5rem;
+  }
+
+  .insight-card.featured .insight-excerpt { color: var(--gray); }
+
+  .insight-meta {
+    font-size: 0.62rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gray);
+  }
+
+  .insight-card.featured .insight-meta { color: var(--fault); }
+
+  .insight-placeholder {
+    background: white;
+    padding: 2.5rem;
+    border: 1px dashed var(--gray-light);
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    text-align: center;
+    min-height: 180px;
+    color: var(--gray);
+  }
+
+  .insight-placeholder-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+
+  .insight-placeholder-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1rem;
+    font-style: italic;
+  }
+
+  /* ── CONTACT ── */
+  #contact {
+    background: var(--navy);
+    color: var(--warm-white);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: center;
+  }
+
+  #contact .section-title { color: var(--warm-white); }
+
+  .contact-detail {
+    display: flex; flex-direction: column; gap: 2rem;
+  }
+
+  .contact-item {}
+
+  .contact-item-label {
+    font-size: 0.62rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--fault);
+    margin-bottom: 0.4rem;
+  }
+
+  .contact-item-value {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem;
+    color: var(--warm-white);
+  }
+
+  .contact-item-value a {
+    color: var(--warm-white);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(255,255,255,0.2);
+    transition: border-color 0.2s;
+  }
+
+  .contact-item-value a:hover { border-color: var(--fault); }
+
+  .contact-right {
+    padding: 3rem;
+    border: 1px solid rgba(255,255,255,0.08);
+    background: rgba(255,255,255,0.02);
+  }
+
+  .contact-right-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--warm-white);
+    margin-bottom: 1.5rem;
+    line-height: 1.3;
+  }
+
+  .contact-right-body {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.05rem;
+    line-height: 1.75;
+    color: var(--gray);
+    margin-bottom: 2rem;
+  }
+
+  .contact-cta {
+    display: inline-flex; align-items: center; gap: 1rem;
+    background: var(--fault);
+    color: white;
+    text-decoration: none;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 1rem 2rem;
+    transition: background 0.2s, gap 0.2s;
+  }
+
+  .contact-cta:hover { background: var(--fault-light); gap: 1.5rem; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #080F18;
+    padding: 3rem 6rem;
+    display: flex; justify-content: space-between; align-items: center;
+    border-top: 1px solid rgba(192,57,43,0.2);
+  }
+
+  .footer-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 1.1rem;
+    color: var(--warm-white);
+    letter-spacing: 0.15em;
+  }
+
+  .footer-logo span { color: var(--fault); }
+
+  .footer-tagline {
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gray);
+    margin-top: 0.3rem;
+  }
+
+  .footer-copy {
+    font-size: 0.65rem;
+    letter-spacing: 0.08em;
+    color: rgba(255,255,255,0.2);
+    text-align: right;
+  }
+
+  /* ── SCROLL ANIMATIONS ── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    nav { padding: 1.2rem 2rem; }
+    .nav-links { gap: 1.5rem; }
+    #home { grid-template-columns: 1fr; }
+    .hero-right { display: none; }
+    section { padding: 5rem 2.5rem; }
+    #about, #philosophy, #contact { grid-template-columns: 1fr; gap: 3rem; }
+    .services-grid { grid-template-columns: 1fr; }
+    .insights-grid { grid-template-columns: 1fr; }
+    .insight-card.featured { min-height: 320px; }
+    footer { flex-direction: column; gap: 1.5rem; text-align: center; padding: 2.5rem; }
+    .footer-copy { text-align: center; }
+    .pull-quote-section { padding: 4rem 2.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#home" class="nav-logo">TECT<span>I</span>Q</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">What We Do</a></li>
+    <li><a href="#philosophy">Philosophy</a></li>
+    <li><a href="#insights">Insights</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="home">
+  <div class="hero-grid-overlay"></div>
+  <div class="hero-fault-line"></div>
+
+  <div class="hero-left">
+    <div class="hero-eyebrow">Practitioner Intelligence</div>
+    <h1 class="hero-title">
+      <em>At the faultline of</em>
+      <strong>Risk &amp; Resilience.</strong>
+    </h1>
+    <p class="hero-tagline">
+      TECTIQ Group is a practitioner-led advisory for senior leaders<br/>
+      navigating the intersection of complex risk, emerging technology,<br/>
+      and organizational performance.
+    </p>
+    <a href="#about" class="hero-cta">Learn More &rarr;</a>
+  </div>
+
+  <div class="hero-right">
+    <div class="hero-stat-block">
+      <div class="hero-stat">
+        <div class="hero-stat-number">25<span>+</span></div>
+        <div class="hero-stat-label">Years Domain Expertise</div>
+        <div class="hero-stat-desc">Built inside real organizations, under real pressure.</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-number">0<span>.</span></div>
+        <div class="hero-stat-label">Theoretical Frameworks Sold Here</div>
+        <div class="hero-stat-desc">Every insight comes from the inside — not a whitepaper.</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-number">∞</div>
+        <div class="hero-stat-label">Execution Gap Potential</div>
+        <div class="hero-stat-desc">The tools exist. The question is who uses them first.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-left reveal">
+    <div class="section-eyebrow">About TECTIQ</div>
+    <h2 class="section-title">Built from the <em>inside out.</em></h2>
+    <p class="section-body">
+      TECTIQ Group is not a consulting firm that learned your industry from a case study.
+      It was built by a practitioner who spent 25 years inside complex risk environments —
+      managing portfolios, leading teams, navigating institutional inertia, and finding ways
+      to execute ideas that the system wasn't ready for.
+    </p>
+    <br/>
+    <p class="section-body">
+      The premise is simple: the most valuable intelligence in any complex field lives inside
+      the people doing the work. TECTIQ exists to surface that intelligence, systematize it,
+      and put it to use — for leaders who are ready to close the gap between what they know
+      and what they can build.
+    </p>
+  </div>
+
+  <div class="about-right reveal">
+    <div class="about-pillar">
+      <div class="about-pillar-label">Domain First</div>
+      <div class="about-pillar-text">
+        Deep expertise in construction risk, specialty insurance, infrastructure, and complex
+        operations. We speak your language because we came from your world.
+      </div>
+    </div>
+    <div class="about-pillar">
+      <div class="about-pillar-label">Practitioner-Led</div>
+      <div class="about-pillar-text">
+        Every framework, every insight, every recommendation comes from someone who has
+        actually run the P&amp;L, managed the team, and lived with the consequences of the decision.
+      </div>
+    </div>
+    <div class="about-pillar">
+      <div class="about-pillar-label">Technology as Tool, Not Identity</div>
+      <div class="about-pillar-text">
+        AI and emerging technology are force multipliers for experienced judgment — not
+        replacements for it. We help leaders integrate these tools in ways that actually work
+        inside real organizations.
+      </div>
+    </div>
+    <div class="about-pillar">
+      <div class="about-pillar-label">Execution Obsessed</div>
+      <div class="about-pillar-text">
+        Ideas without execution are just overhead. TECTIQ is built around closing the gap
+        between vision and operational reality — fast.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="reveal">
+    <div class="section-eyebrow">What We Do</div>
+    <h2 class="section-title">Where we <em>operate.</em></h2>
+    <p class="section-body">
+      TECTIQ works with senior leaders in complex fields who are ready to build something
+      that didn't exist before. Our engagements are shaped around your specific challenge —
+      not a pre-packaged deliverable.
+    </p>
+  </div>
+
+  <div class="services-grid reveal">
+    <div class="service-card">
+      <div class="service-number">01</div>
+      <div class="service-title">Advisory &amp; Strategic Counsel</div>
+      <div class="service-body">
+        Direct engagement with senior leaders navigating technology adoption, organizational
+        change, and performance transformation in complex risk environments. Candid. Confidential.
+        Grounded in how organizations actually work — not how they're supposed to.
+      </div>
+    </div>
+
+    <div class="service-card">
+      <div class="service-number">02</div>
+      <div class="service-title">AI Workflow Integration</div>
+      <div class="service-body">
+        Helping domain experts build AI-augmented workflows that reflect their actual
+        expertise — not generic automation layered over broken processes. From triage systems
+        to decision intelligence to risk analysis frameworks.
+      </div>
+    </div>
+
+    <div class="service-card">
+      <div class="service-number">03</div>
+      <div class="service-title">Practitioner Intelligence</div>
+      <div class="service-body">
+        Published research, frameworks, and case studies drawn from real operational experience.
+        For leaders who are tired of theory and ready for something they can actually use
+        on Monday morning.
+      </div>
+    </div>
+
+    <div class="service-card">
+      <div class="service-number">04</div>
+      <div class="service-title">Leadership &amp; Team Performance</div>
+      <div class="service-body">
+        Building high-performance teams inside complex organizations requires more than
+        management technique. TECTIQ brings a practitioner's lens to delegation, culture,
+        accountability, and the specific dynamics of leading specialists.
+      </div>
+    </div>
+
+    <div class="service-card">
+      <div class="service-number">05</div>
+      <div class="service-title">Risk Intelligence Systems</div>
+      <div class="service-body">
+        Proprietary frameworks for understanding, triaging, and acting on complex risk —
+        built from decades of hands-on underwriting, construction, and infrastructure
+        experience. Designed to be used, not filed.
+      </div>
+    </div>
+
+    <div class="service-card">
+      <div class="service-number">06</div>
+      <div class="service-title">Speaking &amp; Executive Education</div>
+      <div class="service-body">
+        Keynotes, workshops, and executive sessions for organizations ready to have an
+        honest conversation about where the gap between expertise and execution is costing
+        them — and what to do about it.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PHILOSOPHY -->
+<section id="philosophy">
+  <div class="philosophy-left reveal">
+    <div class="section-eyebrow">Our Philosophy</div>
+    <h2 class="section-title">The <em>execution gap</em> is real.</h2>
+    <p class="section-body">
+      The most experienced people in any complex field have always had the best ideas.
+      What they rarely had was the ability to build them.
+      <br/><br/>
+      That changed.
+    </p>
+  </div>
+
+  <div class="philosophy-right">
+    <div class="philosophy-block reveal">
+      <div class="philosophy-block-title">On Expertise</div>
+      <div class="philosophy-block-text">
+        Twenty-five years of hard-won domain knowledge doesn't become less valuable when
+        technology evolves. It becomes more valuable — because experienced judgment is
+        exactly what's needed to determine where AI helps and where it misleads. The practitioners
+        who understand this are building unfair competitive advantages right now. The ones who
+        don't are waiting for someone to tell them what to do.
+      </div>
+    </div>
+
+    <div class="philosophy-block reveal">
+      <div class="philosophy-block-title">On Technology</div>
+      <div class="philosophy-block-text">
+        Most organizations are making a fundamental error: they are buying AI strategy before
+        they have AI literacy in the people closest to the work. The result is sophisticated
+        tools sitting on top of unchanged workflows, producing sophisticated-looking outputs
+        that don't actually solve anything. Technology doesn't create insight. Experienced people
+        using the right tools do.
+      </div>
+    </div>
+
+    <div class="philosophy-block reveal">
+      <div class="philosophy-block-title">On Organizations</div>
+      <div class="philosophy-block-text">
+        Every large organization has practitioners who see exactly what needs to be built —
+        and can't get it built. Not because the idea is wrong. Because the system isn't designed
+        to absorb it. This is not a technology problem. It is a leadership problem. The organizations
+        that close this gap in the next three years will define their markets for the decade after.
+      </div>
+    </div>
+
+    <div class="philosophy-block reveal">
+      <div class="philosophy-block-title">On Speed</div>
+      <div class="philosophy-block-text">
+        The window for building a real competitive advantage using AI-integrated workflows is
+        open right now. It will not stay open indefinitely. The leaders who move with intention
+        in the next 18 months will build something that takes competitors years to replicate.
+        The ones who wait for institutional consensus will find they're catching up — permanently.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PULL QUOTE -->
+<div class="pull-quote-section">
+  <div class="pull-quote">
+    The technology barrier is lower than it has ever been.
+    The human barrier is exactly as high as it always was.
+  </div>
+  <div class="pull-quote-attr">— TECTIQ Practitioner Intelligence, Inaugural Edition</div>
+</div>
+
+<!-- INSIGHTS -->
+<section id="insights">
+  <div class="insights-header reveal">
+    <div>
+      <div class="section-eyebrow">Insights</div>
+      <h2 class="section-title">Practitioner <em>intelligence.</em></h2>
+    </div>
+  </div>
+
+  <div class="insights-grid reveal">
+    <!-- Featured Article -->
+    <div class="insight-card featured">
+      <div class="insight-tag">Inaugural Edition &nbsp;·&nbsp; Practitioner Intelligence</div>
+      <div class="insight-title">The $0 Tool That Made Our CIO Sad</div>
+      <div class="insight-excerpt">
+        What happens when a practitioner outbuilds the consultants — and nobody is ready for it.
+        A candid account of building AI-integrated workflows inside a complex organization,
+        the adoption resistance that followed, and what every senior leader needs to understand
+        about the execution gap.
+      </div>
+      <div class="insight-meta">March 2026 &nbsp;·&nbsp; 8 min read</div>
+    </div>
+
+    <!-- Placeholder 2 -->
+    <div class="insight-placeholder">
+      <div class="insight-placeholder-label">Coming Soon</div>
+      <div class="insight-placeholder-text">The Adoption Paradox: Why the Best Tools Die Inside Good Organizations</div>
+    </div>
+
+    <!-- Placeholder 3 -->
+    <div class="insight-placeholder">
+      <div class="insight-placeholder-label">Coming Soon</div>
+      <div class="insight-placeholder-text">What 10,000 Submissions Taught Me About the Limits of Human Triage</div>
+    </div>
+
+    <!-- Placeholder 4 -->
+    <div class="insight-placeholder">
+      <div class="insight-placeholder-label">Coming Soon</div>
+      <div class="insight-placeholder-text">Building Without Permission: The Practitioner's Guide to Parallel Innovation</div>
+    </div>
+
+    <!-- Placeholder 5 -->
+    <div class="insight-placeholder">
+      <div class="insight-placeholder-label">Coming Soon</div>
+      <div class="insight-placeholder-text">The Faultline Leaders: Profiles in Domain Expertise Meeting Emerging Technology</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="reveal">
+    <div class="section-eyebrow">Contact</div>
+    <h2 class="section-title">Let's find the <em>faultline.</em></h2>
+    <p class="section-body">
+      TECTIQ works with a select number of engagements at any given time.
+      If you're a senior leader navigating a complex challenge at the intersection
+      of risk, technology, and organizational performance — we'd like to hear from you.
+    </p>
+    <br/>
+    <div class="contact-detail">
+      <div class="contact-item">
+        <div class="contact-item-label">Email</div>
+        <div class="contact-item-value">
+          <a href="mailto:info@tectiqgroup.com">info@tectiqgroup.com</a>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-item-label">Location</div>
+        <div class="contact-item-value">Richmond, Virginia</div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-item-label">Entity</div>
+        <div class="contact-item-value">TECTIQ Group, LLC</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="contact-right reveal">
+    <div class="contact-right-title">
+      Not sure if TECTIQ is the right fit?
+    </div>
+    <div class="contact-right-body">
+      Start with the Insights series. If what you read makes you think
+      "this person understands my world" — that's probably a good sign.
+      The work we do together starts with a conversation, not a proposal.
+    </div>
+    <a href="mailto:info@tectiqgroup.com" class="contact-cta">Start a Conversation &rarr;</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="footer-logo">TECT<span>I</span>Q</div>
+    <div class="footer-tagline">At the Faultline of Risk and Resilience</div>
+  </div>
+  <div class="footer-copy">
+    &copy; 2026 TECTIQ Group, LLC &nbsp;·&nbsp; Richmond, Virginia<br/>
+    All rights reserved.
+  </div>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+
+  // Smooth nav highlight
+  const sections = document.querySelectorAll('section[id], div[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 120) current = s.id;
+    });
+    navLinks.forEach(a => {
+      a.style.color = a.getAttribute('href') === '#' + current
+        ? 'var(--fault-light)' : '';
+    });
+  });
+</script>
+</body>
+</html>
