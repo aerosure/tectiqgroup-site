@@ -584,6 +584,92 @@
     letter-spacing: 0.08em;
   }
 
+  /* ── WHITEPAPERS ── */
+  #whitepapers {
+    background: #060E1A;
+    border-top: 1px solid rgba(255,255,255,0.04);
+  }
+
+  .whitepapers-intro {
+    font-family: var(--serif);
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: var(--gray);
+    max-width: 640px;
+    margin-bottom: 4rem;
+  }
+
+  .whitepapers-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    margin-bottom: 4rem;
+  }
+
+  .whitepaper-card {
+    background: rgba(27,58,92,0.15);
+    border: 1px solid rgba(255,255,255,0.05);
+    padding: 2.5rem;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .whitepaper-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--copper), var(--fault));
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+    transform-origin: left;
+  }
+
+  .whitepaper-card:hover {
+    background: rgba(27,58,92,0.3);
+    border-color: rgba(179,124,77,0.2);
+  }
+
+  .whitepaper-card:hover::before { transform: scaleX(1); }
+
+  .whitepaper-card.coming-soon {
+    opacity: 0.45;
+  }
+
+  .whitepaper-card.coming-soon:hover {
+    background: rgba(27,58,92,0.15);
+    border-color: rgba(255,255,255,0.05);
+  }
+
+  .whitepaper-card.coming-soon::before {
+    display: none;
+  }
+
+  .whitepaper-tag {
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--copper);
+    margin-bottom: 1rem;
+  }
+
+  .whitepaper-title {
+    font-family: var(--serif);
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--warm-white);
+    line-height: 1.3;
+    margin-bottom: 1rem;
+  }
+
+  .whitepaper-body {
+    font-family: var(--serif);
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: var(--gray);
+  }
+
   /* ── CONTACT ── */
   #contact {
     background: #060E1A;
@@ -706,6 +792,7 @@
     #about, #philosophy, #contact { grid-template-columns: 1fr; gap: 3rem; }
     .services-grid { grid-template-columns: 1fr; }
     .articles-grid { grid-template-columns: 1fr; }
+    .whitepapers-grid { grid-template-columns: 1fr; }
     footer { flex-direction: column; gap: 1.5rem; text-align: center; padding: 2.5rem; }
     .footer-copy { text-align: center; }
     .pull-quote-section { padding: 5rem 2.5rem; }
@@ -724,6 +811,7 @@
     <li><a href="#services">What We Do</a></li>
     <li><a href="#philosophy">Philosophy</a></li>
     <li><a href="#insights">Insights</a></li>
+    <li><a href="#whitepapers">Whitepapers</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
 </nav>
@@ -976,7 +1064,7 @@
     <a href="https://tectiq.substack.com" target="_blank" class="article-card">
       <img src="article-02.png" alt="The Ceiling Came Off" class="article-card-image"/>
       <div class="article-card-body">
-        <div class="article-card-edition">Edition 02 &nbsp;·&nbsp; Live Now</div>
+        <div class="article-card-edition">Edition 02 &nbsp;·&nbsp; March 18</div>
         <div class="article-card-title">The Ceiling Came Off</div>
         <div class="article-card-excerpt">What happens when a skeptic who refused to touch AI walks into a mountain in Switzerland — and walks out unable to stop building.</div>
       </div>
@@ -985,7 +1073,7 @@
     <a href="https://tectiq.substack.com" target="_blank" class="article-card">
       <img src="article-03.png" alt="The Chameleon" class="article-card-image"/>
       <div class="article-card-body">
-        <div class="article-card-edition">Edition 03 &nbsp;·&nbsp; Coming Soon</div>
+        <div class="article-card-edition">Edition 03 &nbsp;·&nbsp; April 8</div>
         <div class="article-card-title">The Chameleon</div>
         <div class="article-card-excerpt">What I learned about identity, adaptation, and the difference between wearing a costume and losing yourself in it.</div>
       </div>
@@ -994,7 +1082,7 @@
     <div class="article-card coming-soon">
       <img src="article-04.png" alt="The Adoption Paradox" class="article-card-image"/>
       <div class="article-card-body">
-        <div class="article-card-edition">Edition 04 &nbsp;·&nbsp; Coming Soon</div>
+        <div class="article-card-edition">Edition 04 &nbsp;·&nbsp; April 22</div>
         <div class="article-card-title">The Adoption Paradox</div>
         <div class="article-card-excerpt">It's not that organizations resist innovation. It's that they're designed to exhaust the people who carry it.</div>
       </div>
@@ -1003,7 +1091,7 @@
     <div class="article-card coming-soon">
       <img src="article-05.png" alt="The Floor" class="article-card-image"/>
       <div class="article-card-body">
-        <div class="article-card-edition">Edition 05 &nbsp;·&nbsp; Coming Soon</div>
+        <div class="article-card-edition">Edition 05 &nbsp;·&nbsp; May 6</div>
         <div class="article-card-title">The Floor</div>
         <div class="article-card-excerpt">What 25 years of ignoring the VIP section taught me about where real intelligence actually lives.</div>
       </div>
@@ -1012,7 +1100,7 @@
     <div class="article-card coming-soon">
       <img src="article-06.png" alt="Liberation Day" class="article-card-image"/>
       <div class="article-card-body">
-        <div class="article-card-edition">Edition 06 &nbsp;·&nbsp; Coming Soon</div>
+        <div class="article-card-edition">Edition 06 &nbsp;·&nbsp; May 20</div>
         <div class="article-card-title">Liberation Day</div>
         <div class="article-card-excerpt">It wasn't a day. It was a slow awakening. But what got built in the dark will surprise you.</div>
       </div>
@@ -1025,6 +1113,46 @@
       Read &amp; Subscribe on Substack &nbsp;&rarr;
     </a>
     <p class="articles-cta-note">New editions publish every other Wednesday at 8:30am ET</p>
+  </div>
+</section>
+
+<!-- WHITEPAPERS -->
+<section id="whitepapers">
+  <div class="reveal">
+    <div class="section-eyebrow">Whitepapers</div>
+    <h2 class="section-title">Research &amp; <em>frameworks.</em></h2>
+  </div>
+
+  <p class="whitepapers-intro reveal">
+    Longer-form technical research, proprietary frameworks, and methodology papers
+    drawn from 25 years of operational experience in complex risk environments.
+    Built for practitioners who need more than a summary.
+  </p>
+
+  <div class="whitepapers-grid reveal">
+
+    <div class="whitepaper-card coming-soon">
+      <div class="whitepaper-tag">Coming Soon &nbsp;·&nbsp; Construction Risk</div>
+      <div class="whitepaper-title">Phase-Based Vulnerability in Builder's Risk: A Framework for Dynamic Exposure Modeling</div>
+      <div class="whitepaper-body">How construction phase drives risk exposure in ways standard CAT models don't capture — and what underwriters need to know before they bind.</div>
+    </div>
+
+    <div class="whitepaper-card coming-soon">
+      <div class="whitepaper-tag">Coming Soon &nbsp;·&nbsp; AI Integration</div>
+      <div class="whitepaper-title">The Execution Gap: How Experienced Practitioners Can Close the Distance Between Vision and Build</div>
+      <div class="whitepaper-body">A practitioner's framework for integrating AI workflows into complex professional environments — built from real experience, not theory.</div>
+    </div>
+
+    <div class="whitepaper-card coming-soon">
+      <div class="whitepaper-tag">Coming Soon &nbsp;·&nbsp; Organizational Performance</div>
+      <div class="whitepaper-title">Death by Committee: The Anatomy of Innovation Failure Inside Large Organizations</div>
+      <div class="whitepaper-body">Why good ideas die inside good organizations — and the specific human dynamics that make institutional innovation so difficult to sustain.</div>
+    </div>
+
+  </div>
+
+  <div class="articles-cta reveal">
+    <p class="articles-cta-note" style="color: var(--gray);">Whitepapers publish periodically. Subscribe to the Practitioner Intelligence Series to be notified.</p>
   </div>
 </section>
 
