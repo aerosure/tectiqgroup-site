@@ -7,27 +7,31 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400;500&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet"/>
 <style>
   :root {
-    --navy: #0D1F35;
-    --navy-mid: #1B3A5C;
-    --slate: #2C4A6E;
-    --fault: #C0392B;
-    --fault-light: #E74C3C;
-    --sand: #F5F0E8;
+    --navy:       #0A1628;
+    --navy-mid:   #1B3A5C;
+    --slate:      #2C4A6E;
+    --fault:      #C0392B;
+    --fault-light:#E74C3C;
+    --copper:     #B37C4D;
+    --copper-light:#D4956A;
+    --sand:       #F5F0E8;
     --warm-white: #FAFAF7;
-    --gray: #8A9BAE;
+    --gray:       #8A9BAE;
     --gray-light: #D4DCE6;
-    --text: #1A2B3C;
+    --text:       #1A2B3C;
     --text-light: #4A6080;
+    --mono:       'DM Mono', monospace;
+    --serif:      'Cormorant Garamond', serif;
+    --sans:       'Syne', sans-serif;
   }
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
   html { scroll-behavior: smooth; }
 
   body {
-    font-family: 'DM Mono', monospace;
-    background: var(--warm-white);
-    color: var(--text);
+    font-family: var(--mono);
+    background: var(--navy);
+    color: var(--warm-white);
     overflow-x: hidden;
   }
 
@@ -35,284 +39,311 @@
   nav {
     position: fixed; top: 0; left: 0; right: 0; z-index: 100;
     display: flex; align-items: center; justify-content: space-between;
-    padding: 1.5rem 4rem;
-    background: rgba(13,31,53,0.97);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(192,57,43,0.3);
+    padding: 1.2rem 4rem;
+    background: rgba(10,22,40,0.92);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(192,57,43,0.25);
+    transition: all 0.3s ease;
   }
 
-  .nav-logo {
-    font-family: 'Syne', sans-serif;
-    font-weight: 800;
-    font-size: 1.4rem;
-    color: var(--warm-white);
-    letter-spacing: 0.15em;
+  .nav-logo-wrap {
+    display: flex; align-items: center; gap: 0.8rem;
     text-decoration: none;
   }
 
-  .nav-logo span { color: var(--fault); }
+  .nav-logo-text {
+    font-family: var(--sans);
+    font-weight: 800;
+    font-size: 1.3rem;
+    color: var(--warm-white);
+    letter-spacing: 0.12em;
+  }
+
+  .nav-logo-text span { color: var(--fault); }
 
   .nav-links {
     display: flex; gap: 2.5rem; list-style: none;
   }
 
   .nav-links a {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.72rem;
-    letter-spacing: 0.12em;
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
     color: var(--gray-light);
     text-decoration: none;
     transition: color 0.2s;
+    position: relative;
   }
 
-  .nav-links a:hover { color: var(--fault-light); }
+  .nav-links a::after {
+    content: '';
+    position: absolute; bottom: -4px; left: 0; right: 0;
+    height: 1px; background: var(--fault);
+    transform: scaleX(0);
+    transition: transform 0.2s ease;
+  }
+
+  .nav-links a:hover { color: var(--warm-white); }
+  .nav-links a:hover::after { transform: scaleX(1); }
 
   /* ── HERO ── */
   #home {
     min-height: 100vh;
-    background: var(--navy);
-    display: grid;
-    grid-template-columns: 1fr 1fr;
     position: relative;
+    display: flex;
+    align-items: center;
     overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute; inset: 0;
+    background-image: url('hero-bg.png');
+    background-size: cover;
+    background-position: center right;
+    background-repeat: no-repeat;
+  }
+
+  .hero-bg::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(
+      105deg,
+      rgba(10,22,40,0.97) 0%,
+      rgba(10,22,40,0.92) 30%,
+      rgba(10,22,40,0.65) 55%,
+      rgba(10,22,40,0.15) 75%,
+      transparent 100%
+    );
+  }
+
+  .hero-content {
+    position: relative; z-index: 2;
+    padding: 0 6rem;
+    max-width: 780px;
     padding-top: 80px;
   }
 
-  .hero-grid-overlay {
-    position: absolute; inset: 0;
-    background-image:
-      linear-gradient(rgba(192,57,43,0.04) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(192,57,43,0.04) 1px, transparent 1px);
-    background-size: 60px 60px;
-    pointer-events: none;
-  }
-
-  .hero-fault-line {
-    position: absolute;
-    top: 0; bottom: 0;
-    left: 50%;
-    width: 1px;
-    background: linear-gradient(to bottom, transparent, var(--fault) 30%, var(--fault) 70%, transparent);
-    opacity: 0.4;
-  }
-
-  .hero-left {
-    display: flex; flex-direction: column; justify-content: center;
-    padding: 6rem 5rem 6rem 6rem;
-    position: relative; z-index: 2;
-  }
-
   .hero-eyebrow {
-    font-size: 0.68rem;
-    letter-spacing: 0.2em;
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
-    color: var(--fault);
-    margin-bottom: 2rem;
+    color: var(--copper);
+    margin-bottom: 1.5rem;
     display: flex; align-items: center; gap: 1rem;
   }
 
   .hero-eyebrow::before {
     content: '';
-    display: block; width: 40px; height: 1px;
-    background: var(--fault);
+    display: inline-block;
+    width: 40px; height: 1px;
+    background: var(--copper);
   }
 
   .hero-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(3rem, 5vw, 5.5rem);
+    font-family: var(--serif);
+    font-size: clamp(3rem, 5.5vw, 5.5rem);
     font-weight: 300;
-    line-height: 1.05;
+    line-height: 1.08;
     color: var(--warm-white);
-    margin-bottom: 1rem;
+    margin-bottom: 2rem;
+    letter-spacing: -0.01em;
   }
 
   .hero-title em {
+    display: block;
     font-style: italic;
     color: var(--gray);
+    font-size: 0.7em;
+    font-weight: 300;
+    letter-spacing: 0.02em;
+    margin-bottom: 0.3rem;
   }
 
   .hero-title strong {
+    display: block;
     font-weight: 600;
     color: var(--warm-white);
-    display: block;
   }
 
   .hero-tagline {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.78rem;
-    letter-spacing: 0.08em;
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    line-height: 1.9;
     color: var(--gray);
-    margin: 2rem 0 3rem;
-    padding-left: 1rem;
+    margin-bottom: 3rem;
+    padding-left: 1.2rem;
     border-left: 2px solid var(--fault);
-    line-height: 1.8;
+    max-width: 480px;
+  }
+
+  .hero-cta-group {
+    display: flex; gap: 1.5rem; flex-wrap: wrap;
   }
 
   .hero-cta {
-    display: inline-flex; align-items: center; gap: 1rem;
-    background: var(--fault);
-    color: white;
-    text-decoration: none;
-    font-family: 'DM Mono', monospace;
+    display: inline-flex; align-items: center; gap: 0.8rem;
+    padding: 0.9rem 2rem;
+    font-family: var(--mono);
     font-size: 0.72rem;
     letter-spacing: 0.15em;
     text-transform: uppercase;
-    padding: 1rem 2rem;
-    transition: background 0.2s, gap 0.2s;
-    width: fit-content;
+    text-decoration: none;
+    transition: all 0.25s ease;
   }
 
-  .hero-cta:hover { background: var(--fault-light); gap: 1.5rem; }
-
-  .hero-right {
-    display: flex; flex-direction: column; justify-content: center;
-    padding: 6rem 6rem 6rem 4rem;
-    position: relative; z-index: 2;
-    border-left: 1px solid rgba(255,255,255,0.06);
+  .hero-cta.primary {
+    background: var(--fault);
+    color: var(--warm-white);
+    border: 1px solid var(--fault);
   }
 
-  .hero-stat-block {
-    display: flex; flex-direction: column; gap: 3rem;
+  .hero-cta.primary:hover {
+    background: var(--fault-light);
+    border-color: var(--fault-light);
+    gap: 1.2rem;
+  }
+
+  .hero-cta.secondary {
+    background: transparent;
+    color: var(--gray-light);
+    border: 1px solid rgba(138,155,174,0.4);
+  }
+
+  .hero-cta.secondary:hover {
+    border-color: var(--copper);
+    color: var(--copper);
+  }
+
+  .hero-stats {
+    position: absolute; bottom: 4rem; left: 6rem; right: 6rem;
+    display: flex; gap: 4rem;
+    z-index: 2;
   }
 
   .hero-stat {
-    opacity: 0;
-    animation: fadeUp 0.8s forwards;
+    border-left: 2px solid rgba(192,57,43,0.4);
+    padding-left: 1.5rem;
   }
-
-  .hero-stat:nth-child(1) { animation-delay: 0.3s; }
-  .hero-stat:nth-child(2) { animation-delay: 0.5s; }
-  .hero-stat:nth-child(3) { animation-delay: 0.7s; }
 
   .hero-stat-number {
-    font-family: 'Syne', sans-serif;
-    font-size: 3rem;
-    font-weight: 800;
+    font-family: var(--serif);
+    font-size: 2.8rem;
+    font-weight: 300;
     color: var(--warm-white);
     line-height: 1;
+    margin-bottom: 0.3rem;
   }
 
-  .hero-stat-number span { color: var(--fault); }
+  .hero-stat-number span { color: var(--copper); font-size: 0.6em; }
 
   .hero-stat-label {
-    font-size: 0.68rem;
-    letter-spacing: 0.12em;
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
     color: var(--gray);
-    margin-top: 0.5rem;
   }
 
-  .hero-stat-desc {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1rem;
-    color: rgba(255,255,255,0.4);
-    margin-top: 0.3rem;
-    font-style: italic;
+  /* ── SHARED SECTION STYLES ── */
+  section {
+    padding: 8rem 6rem;
   }
-
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  /* ── SECTION BASE ── */
-  section { padding: 8rem 6rem; }
 
   .section-eyebrow {
-    font-size: 0.65rem;
-    letter-spacing: 0.22em;
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
     color: var(--fault);
+    margin-bottom: 1rem;
     display: flex; align-items: center; gap: 1rem;
-    margin-bottom: 1.5rem;
   }
 
-  .section-eyebrow::after {
+  .section-eyebrow::before {
     content: '';
-    display: block; flex: 1; max-width: 60px; height: 1px;
+    display: inline-block;
+    width: 30px; height: 1px;
     background: var(--fault);
   }
 
   .section-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(2.2rem, 4vw, 3.8rem);
+    font-family: var(--serif);
+    font-size: clamp(2.2rem, 3.5vw, 3.2rem);
     font-weight: 300;
-    line-height: 1.1;
-    color: var(--navy);
+    line-height: 1.15;
+    color: var(--warm-white);
     margin-bottom: 1.5rem;
+    letter-spacing: -0.01em;
   }
 
-  .section-title em { font-style: italic; color: var(--slate); }
+  .section-title em {
+    font-style: italic;
+    color: var(--copper-light);
+  }
 
   .section-body {
-    font-family: 'Cormorant Garamond', serif;
+    font-family: var(--serif);
     font-size: 1.15rem;
-    line-height: 1.85;
-    color: var(--text-light);
-    max-width: 640px;
+    line-height: 1.8;
+    color: var(--gray);
   }
 
   /* ── ABOUT ── */
   #about {
-    background: var(--sand);
+    background: var(--navy);
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 6rem;
-    align-items: center;
-  }
-
-  .about-left {}
-
-  .about-right {
-    display: flex; flex-direction: column; gap: 2rem;
+    gap: 8rem;
+    align-items: start;
+    border-top: 1px solid rgba(255,255,255,0.06);
   }
 
   .about-pillar {
-    padding: 1.8rem 2rem;
-    background: white;
-    border-left: 3px solid var(--fault);
-    box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+    padding: 2rem 0;
+    border-top: 1px solid rgba(192,57,43,0.25);
   }
 
   .about-pillar-label {
-    font-size: 0.65rem;
-    letter-spacing: 0.18em;
+    font-family: var(--sans);
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    color: var(--warm-white);
+    margin-bottom: 0.75rem;
     text-transform: uppercase;
-    color: var(--fault);
-    margin-bottom: 0.5rem;
   }
 
   .about-pillar-text {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.05rem;
-    line-height: 1.7;
-    color: var(--text);
+    font-family: var(--serif);
+    font-size: 1rem;
+    line-height: 1.75;
+    color: var(--gray);
   }
 
-  /* ── WHAT WE DO ── */
+  /* ── SERVICES ── */
   #services {
-    background: var(--navy);
-    color: var(--warm-white);
+    background: #060E1A;
+    border-top: 1px solid rgba(255,255,255,0.04);
   }
 
-  #services .section-title { color: var(--warm-white); }
-  #services .section-title em { color: var(--gray); }
-  #services .section-body { color: var(--gray); }
+  .services-intro {
+    max-width: 600px;
+    margin-bottom: 5rem;
+  }
 
   .services-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 1px;
-    background: rgba(255,255,255,0.06);
-    margin-top: 4rem;
-    border: 1px solid rgba(255,255,255,0.06);
+    gap: 2px;
   }
 
   .service-card {
-    background: var(--navy);
+    background: rgba(27,58,92,0.2);
     padding: 3rem 2.5rem;
-    transition: background 0.3s;
+    border: 1px solid rgba(255,255,255,0.05);
+    transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
   }
@@ -321,276 +352,265 @@
     content: '';
     position: absolute; top: 0; left: 0; right: 0;
     height: 2px;
-    background: var(--fault);
+    background: linear-gradient(90deg, var(--fault), var(--copper));
     transform: scaleX(0);
-    transition: transform 0.3s;
+    transition: transform 0.3s ease;
     transform-origin: left;
   }
 
-  .service-card:hover { background: var(--navy-mid); }
+  .service-card:hover {
+    background: rgba(27,58,92,0.4);
+    border-color: rgba(192,57,43,0.2);
+  }
+
   .service-card:hover::before { transform: scaleX(1); }
 
   .service-number {
-    font-family: 'Syne', sans-serif;
-    font-size: 3rem;
-    font-weight: 800;
-    color: rgba(192,57,43,0.15);
-    line-height: 1;
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    color: var(--fault);
     margin-bottom: 1.5rem;
   }
 
   .service-title {
-    font-family: 'Syne', sans-serif;
-    font-size: 1rem;
+    font-family: var(--sans);
+    font-size: 0.9rem;
     font-weight: 700;
     color: var(--warm-white);
-    letter-spacing: 0.05em;
+    letter-spacing: 0.04em;
     margin-bottom: 1rem;
     text-transform: uppercase;
   }
 
   .service-body {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.05rem;
+    font-family: var(--serif);
+    font-size: 1rem;
     line-height: 1.75;
     color: var(--gray);
   }
 
   /* ── PHILOSOPHY ── */
   #philosophy {
-    background: var(--warm-white);
+    background: var(--navy);
     display: grid;
-    grid-template-columns: 1fr 2fr;
+    grid-template-columns: 1fr 1.6fr;
     gap: 8rem;
     align-items: start;
+    border-top: 1px solid rgba(255,255,255,0.06);
   }
 
-  .philosophy-left {
-    position: sticky; top: 120px;
+  .philosophy-block {
+    padding: 2.5rem 0;
+    border-top: 1px solid rgba(255,255,255,0.08);
   }
-
-  .philosophy-right {
-    display: flex; flex-direction: column; gap: 4rem;
-  }
-
-  .philosophy-block {}
 
   .philosophy-block-title {
-    font-family: 'Syne', sans-serif;
+    font-family: var(--sans);
     font-size: 0.8rem;
     font-weight: 700;
-    letter-spacing: 0.15em;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: var(--navy);
+    color: var(--copper);
     margin-bottom: 1rem;
-    padding-bottom: 0.75rem;
-    border-bottom: 1px solid var(--gray-light);
   }
 
   .philosophy-block-text {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.15rem;
-    line-height: 1.85;
-    color: var(--text-light);
+    font-family: var(--serif);
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: var(--gray);
   }
 
   /* ── PULL QUOTE ── */
   .pull-quote-section {
-    background: var(--navy-mid);
-    padding: 6rem;
+    background: #060E1A;
+    padding: 7rem 6rem;
     text-align: center;
+    position: relative;
+    overflow: hidden;
+    border-top: 1px solid rgba(255,255,255,0.04);
+  }
+
+  .pull-quote-section::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image: url('hero-bg.png');
+    background-size: cover;
+    background-position: center;
+    opacity: 0.06;
   }
 
   .pull-quote {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(1.6rem, 3vw, 2.8rem);
+    position: relative; z-index: 1;
+    font-family: var(--serif);
+    font-size: clamp(1.6rem, 2.8vw, 2.6rem);
     font-weight: 300;
     font-style: italic;
     color: var(--warm-white);
-    line-height: 1.4;
+    line-height: 1.45;
     max-width: 900px;
-    margin: 0 auto;
-    position: relative;
-  }
-
-  .pull-quote::before {
-    content: '"';
-    font-size: 8rem;
-    color: var(--fault);
-    opacity: 0.3;
-    position: absolute;
-    top: -3rem; left: -2rem;
-    font-family: 'Cormorant Garamond', serif;
-    line-height: 1;
+    margin: 0 auto 1.5rem;
   }
 
   .pull-quote-attr {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.68rem;
-    letter-spacing: 0.15em;
+    position: relative; z-index: 1;
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: var(--fault);
-    margin-top: 2rem;
+    color: var(--copper);
   }
 
   /* ── INSIGHTS ── */
   #insights {
     background: var(--sand);
+    border-top: 1px solid rgba(0,0,0,0.08);
   }
 
-  #insights .service-title {
-    color: var(--text);
-    font-size: 1.15rem;
-  }
+  #insights .section-eyebrow { color: var(--fault); }
+  #insights .section-eyebrow::before { background: var(--fault); }
+  #insights .section-title { color: var(--text); }
+  #insights .section-title em { color: var(--fault); }
 
-  #insights .section-body {
+  .insights-intro {
+    font-family: var(--serif);
+    font-size: 1.1rem;
+    line-height: 1.8;
     color: var(--text-light);
-  }
-
-  #insights .section-eyebrow {
-    color: var(--fault);
-  }
-
-  #insights .section-eyebrow.muted {
-    color: var(--text-light);
-  }
-
-  .insights-header {
-    display: flex; justify-content: space-between; align-items: flex-end;
+    max-width: 640px;
     margin-bottom: 4rem;
   }
 
-  .insights-grid {
+  .articles-grid {
     display: grid;
-    grid-template-columns: 2fr 1fr 1fr;
-    gap: 1.5rem;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    margin-bottom: 4rem;
   }
 
-  .insight-card {
+  .article-card {
     background: white;
-    padding: 2.5rem;
-    border-top: 3px solid transparent;
-    transition: border-color 0.3s, transform 0.3s;
-    cursor: pointer;
-  }
-
-  .insight-card:hover {
-    border-color: var(--fault);
-    transform: translateY(-4px);
-  }
-
-  .insight-card.featured {
-    grid-row: span 2;
-    background: var(--navy);
-    color: white;
-    display: flex; flex-direction: column; justify-content: flex-end;
-    padding: 3rem;
-    position: relative;
+    border: 1px solid rgba(0,0,0,0.08);
     overflow: hidden;
-    min-height: 480px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    text-decoration: none;
+    display: block;
   }
 
-  .insight-card.featured::before {
-    content: '';
-    position: absolute; inset: 0;
-    background: linear-gradient(to top, rgba(13,31,53,0.98) 40%, transparent);
+  .article-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+    border-color: rgba(192,57,43,0.2);
   }
 
-  .insight-card.featured > * { position: relative; z-index: 1; }
+  .article-card-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    display: block;
+  }
 
-  .insight-tag {
-    font-size: 0.62rem;
-    letter-spacing: 0.18em;
+  .article-card-body {
+    padding: 1.8rem 2rem;
+  }
+
+  .article-card-edition {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
     color: var(--fault);
-    margin-bottom: 1rem;
+    margin-bottom: 0.6rem;
   }
 
-  .insight-title {
-    font-family: 'Cormorant Garamond', serif;
+  .article-card-title {
+    font-family: var(--serif);
     font-size: 1.4rem;
-    font-weight: 400;
-    line-height: 1.3;
-    color: var(--navy);
-    margin-bottom: 0.75rem;
+    font-weight: 600;
+    color: var(--text);
+    line-height: 1.25;
+    margin-bottom: 0.8rem;
   }
 
-  .insight-card.featured .insight-title {
-    font-size: 1.9rem;
+  .article-card-excerpt {
+    font-family: var(--serif);
+    font-size: 0.95rem;
+    line-height: 1.65;
+    color: var(--text-light);
+  }
+
+  .article-card.coming-soon {
+    opacity: 0.55;
+    cursor: default;
+  }
+
+  .article-card.coming-soon:hover {
+    transform: none;
+    box-shadow: none;
+  }
+
+  .articles-cta {
+    text-align: center;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(0,0,0,0.08);
+  }
+
+  .articles-cta-btn {
+    display: inline-flex; align-items: center; gap: 0.8rem;
+    padding: 1rem 2.5rem;
+    background: transparent;
+    border: 1px solid var(--fault);
+    color: var(--fault);
+    text-decoration: none;
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    transition: all 0.2s ease;
+  }
+
+  .articles-cta-btn:hover {
+    background: var(--fault);
     color: var(--warm-white);
   }
 
-  .insight-excerpt {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1rem;
-    line-height: 1.6;
+  .articles-cta-note {
+    margin-top: 1rem;
+    font-family: var(--mono);
+    font-size: 0.7rem;
     color: var(--text-light);
-    margin-bottom: 1.5rem;
-  }
-
-  .insight-card.featured .insight-excerpt { color: var(--gray); }
-
-  .insight-meta {
-    font-size: 0.62rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--gray);
-  }
-
-  .insight-card.featured .insight-meta { color: var(--fault); }
-
-  .insight-placeholder {
-    background: white;
-    padding: 2.5rem;
-    border: 1px dashed var(--gray-light);
-    display: flex; flex-direction: column; justify-content: center; align-items: center;
-    text-align: center;
-    min-height: 180px;
-    color: var(--gray);
-  }
-
-  .insight-placeholder-label {
-    font-size: 0.65rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    margin-bottom: 0.5rem;
-  }
-
-  .insight-placeholder-text {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1rem;
-    font-style: italic;
+    letter-spacing: 0.08em;
   }
 
   /* ── CONTACT ── */
   #contact {
-    background: var(--navy);
-    color: var(--warm-white);
+    background: #060E1A;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 6rem;
-    align-items: center;
+    gap: 8rem;
+    align-items: start;
+    border-top: 1px solid rgba(255,255,255,0.04);
   }
-
-  #contact .section-title { color: var(--warm-white); }
 
   .contact-detail {
-    display: flex; flex-direction: column; gap: 2rem;
+    margin-top: 3rem;
+    display: flex; flex-direction: column; gap: 1.5rem;
   }
 
-  .contact-item {}
-
   .contact-item-label {
-    font-size: 0.62rem;
-    letter-spacing: 0.2em;
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: var(--fault);
-    margin-bottom: 0.4rem;
+    color: var(--copper);
+    margin-bottom: 0.3rem;
   }
 
   .contact-item-value {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.2rem;
+    font-family: var(--serif);
+    font-size: 1.1rem;
     color: var(--warm-white);
   }
 
@@ -603,88 +623,72 @@
 
   .contact-item-value a:hover { border-color: var(--fault); }
 
-  .contact-right {
-    padding: 3rem;
-    border: 1px solid rgba(255,255,255,0.08);
-    background: rgba(255,255,255,0.02);
-  }
-
   .contact-right-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.6rem;
+    font-family: var(--serif);
+    font-size: 1.8rem;
     font-weight: 300;
     font-style: italic;
     color: var(--warm-white);
+    line-height: 1.4;
     margin-bottom: 1.5rem;
-    line-height: 1.3;
   }
 
   .contact-right-body {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.05rem;
-    line-height: 1.75;
+    font-family: var(--serif);
+    font-size: 1rem;
+    line-height: 1.8;
     color: var(--gray);
     margin-bottom: 2rem;
   }
 
-  .contact-cta {
-    display: inline-flex; align-items: center; gap: 1rem;
-    background: var(--fault);
-    color: white;
-    text-decoration: none;
-    font-family: 'DM Mono', monospace;
-    font-size: 0.7rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    padding: 1rem 2rem;
-    transition: background 0.2s, gap 0.2s;
-  }
-
-  .contact-cta:hover { background: var(--fault-light); gap: 1.5rem; }
-
   /* ── FOOTER ── */
   footer {
-    background: #080F18;
+    background: var(--navy);
     padding: 3rem 6rem;
-    display: flex; justify-content: space-between; align-items: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     border-top: 1px solid rgba(192,57,43,0.2);
   }
 
   .footer-logo {
-    font-family: 'Syne', sans-serif;
+    font-family: var(--sans);
     font-weight: 800;
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     color: var(--warm-white);
-    letter-spacing: 0.15em;
+    letter-spacing: 0.12em;
   }
 
   .footer-logo span { color: var(--fault); }
 
   .footer-tagline {
+    font-family: var(--mono);
     font-size: 0.65rem;
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: var(--gray);
+    color: var(--copper);
     margin-top: 0.3rem;
   }
 
   .footer-copy {
+    font-family: var(--mono);
     font-size: 0.65rem;
-    letter-spacing: 0.08em;
-    color: rgba(255,255,255,0.2);
+    letter-spacing: 0.06em;
+    color: var(--gray);
     text-align: right;
+    line-height: 1.8;
   }
 
-  /* ── SCROLL ANIMATIONS ── */
+  /* ── REVEAL ANIMATION ── */
   .reveal {
     opacity: 1;
     transform: none;
-    transition: opacity 0.7s ease, transform 0.7s ease;
+    transition: opacity 0.8s ease, transform 0.8s ease;
   }
 
   .reveal.animate {
     opacity: 0;
-    transform: translateY(30px);
+    transform: translateY(24px);
   }
 
   .reveal.animate.visible {
@@ -696,16 +700,15 @@
   @media (max-width: 900px) {
     nav { padding: 1.2rem 2rem; }
     .nav-links { gap: 1.5rem; }
-    #home { grid-template-columns: 1fr; }
-    .hero-right { display: none; }
     section { padding: 5rem 2.5rem; }
+    .hero-content { padding: 80px 2.5rem 0; }
+    .hero-stats { left: 2.5rem; right: 2.5rem; gap: 2rem; flex-wrap: wrap; }
     #about, #philosophy, #contact { grid-template-columns: 1fr; gap: 3rem; }
     .services-grid { grid-template-columns: 1fr; }
-    .insights-grid { grid-template-columns: 1fr; }
-    .insight-card.featured { min-height: 320px; }
+    .articles-grid { grid-template-columns: 1fr; }
     footer { flex-direction: column; gap: 1.5rem; text-align: center; padding: 2.5rem; }
     .footer-copy { text-align: center; }
-    .pull-quote-section { padding: 4rem 2.5rem; }
+    .pull-quote-section { padding: 5rem 2.5rem; }
   }
 </style>
 </head>
@@ -713,7 +716,9 @@
 
 <!-- NAV -->
 <nav>
-  <a href="#home" class="nav-logo">TECT<span>I</span>Q</a>
+  <a href="#home" class="nav-logo-wrap">
+    <span class="nav-logo-text">TECT<span>I</span>Q</span>
+  </a>
   <ul class="nav-links">
     <li><a href="#about">About</a></li>
     <li><a href="#services">What We Do</a></li>
@@ -725,40 +730,37 @@
 
 <!-- HERO -->
 <section id="home">
-  <div class="hero-grid-overlay"></div>
-  <div class="hero-fault-line"></div>
+  <div class="hero-bg"></div>
 
-  <div class="hero-left">
+  <div class="hero-content reveal">
     <div class="hero-eyebrow">Practitioner Intelligence</div>
     <h1 class="hero-title">
       <em>At the Fault Line of</em>
       <strong>Risk &amp; Resilience.</strong>
     </h1>
     <p class="hero-tagline">
-      TECTIQ Group is a practitioner-led advisory for senior leaders<br/>
-      navigating the intersection of complex risk, emerging technology,<br/>
+      TECTIQ Group is a practitioner-led platform for senior leaders
+      navigating the intersection of complex risk, emerging technology,
       and organizational performance.
     </p>
-    <a href="#about" class="hero-cta">Learn More &rarr;</a>
+    <div class="hero-cta-group">
+      <a href="#insights" class="hero-cta primary">Read the Series &rarr;</a>
+      <a href="#about" class="hero-cta secondary">About TECTIQ</a>
+    </div>
   </div>
 
-  <div class="hero-right">
-    <div class="hero-stat-block">
-      <div class="hero-stat">
-        <div class="hero-stat-number">25<span>+</span></div>
-        <div class="hero-stat-label">Years Domain Expertise</div>
-        <div class="hero-stat-desc">Built inside real organizations, under real pressure.</div>
-      </div>
-      <div class="hero-stat">
-        <div class="hero-stat-number">0<span>.</span></div>
-        <div class="hero-stat-label">Theoretical Frameworks Sold Here</div>
-        <div class="hero-stat-desc">Every insight comes from the inside — not a whitepaper.</div>
-      </div>
-      <div class="hero-stat">
-        <div class="hero-stat-number">∞</div>
-        <div class="hero-stat-label">Execution Gap Potential</div>
-        <div class="hero-stat-desc">The tools exist. The question is who uses them first.</div>
-      </div>
+  <div class="hero-stats">
+    <div class="hero-stat">
+      <div class="hero-stat-number">25<span>+</span></div>
+      <div class="hero-stat-label">Years Domain Expertise</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-number">0<span>.</span></div>
+      <div class="hero-stat-label">Theoretical Frameworks</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-number">&infin;</div>
+      <div class="hero-stat-label">Execution Gap Potential</div>
     </div>
   </div>
 </section>
@@ -818,7 +820,7 @@
 
 <!-- SERVICES -->
 <section id="services">
-  <div class="reveal">
+  <div class="services-intro reveal">
     <div class="section-eyebrow">What We Do</div>
     <h2 class="section-title">Where we <em>operate.</em></h2>
     <p class="section-body">
@@ -838,7 +840,6 @@
         Grounded in how organizations actually work — not how they're supposed to.
       </div>
     </div>
-
     <div class="service-card">
       <div class="service-number">02</div>
       <div class="service-title">AI Workflow Integration</div>
@@ -848,7 +849,6 @@
         to decision intelligence to risk analysis frameworks.
       </div>
     </div>
-
     <div class="service-card">
       <div class="service-number">03</div>
       <div class="service-title">Practitioner Intelligence</div>
@@ -858,7 +858,6 @@
         on Monday morning.
       </div>
     </div>
-
     <div class="service-card">
       <div class="service-number">04</div>
       <div class="service-title">Leadership &amp; Team Performance</div>
@@ -868,7 +867,6 @@
         accountability, and the specific dynamics of leading specialists.
       </div>
     </div>
-
     <div class="service-card">
       <div class="service-number">05</div>
       <div class="service-title">Risk Intelligence Systems</div>
@@ -878,7 +876,6 @@
         experience. Designed to be used, not filed.
       </div>
     </div>
-
     <div class="service-card">
       <div class="service-number">06</div>
       <div class="service-title">Speaking &amp; Executive Education</div>
@@ -911,11 +908,9 @@
         Twenty-five years of hard-won domain knowledge doesn't become less valuable when
         technology evolves. It becomes more valuable — because experienced judgment is
         exactly what's needed to determine where AI helps and where it misleads. The practitioners
-        who understand this are building unfair competitive advantages right now. The ones who
-        don't are waiting for someone to tell them what to do.
+        who understand this are building unfair competitive advantages right now.
       </div>
     </div>
-
     <div class="philosophy-block reveal">
       <div class="philosophy-block-title">On Technology</div>
       <div class="philosophy-block-text">
@@ -926,24 +921,20 @@
         using the right tools do.
       </div>
     </div>
-
     <div class="philosophy-block reveal">
       <div class="philosophy-block-title">On Organizations</div>
       <div class="philosophy-block-text">
         Every large organization has practitioners who see exactly what needs to be built —
         and can't get it built. Not because the idea is wrong. Because the system isn't designed
-        to absorb it. This is not a technology problem. It is a leadership problem. The organizations
-        that close this gap in the next three years will define their markets for the decade after.
+        to absorb it. This is not a technology problem. It is a leadership problem.
       </div>
     </div>
-
     <div class="philosophy-block reveal">
       <div class="philosophy-block-title">On Speed</div>
       <div class="philosophy-block-text">
         The window for building a real competitive advantage using AI-integrated workflows is
         open right now. It will not stay open indefinitely. The leaders who move with intention
         in the next 18 months will build something that takes competitors years to replicate.
-        The ones who wait for institutional consensus will find they're catching up — permanently.
       </div>
     </div>
   </div>
@@ -952,69 +943,70 @@
 <!-- PULL QUOTE -->
 <div class="pull-quote-section">
   <div class="pull-quote">
-    The technology barrier is lower than it has ever been.
-    The human barrier is exactly as high as it always was.
+    "The technology barrier is lower than it has ever been.
+    The human barrier is exactly as high as it always was."
   </div>
-  <div class="pull-quote-attr">— TECTIQ Practitioner Intelligence, Inaugural Edition</div>
+  <div class="pull-quote-attr">— TECTIQ Practitioner Intelligence Series</div>
 </div>
 
 <!-- INSIGHTS -->
 <section id="insights">
-  <div class="insights-header reveal">
-    <div>
-      <div class="section-eyebrow">Insights</div>
-      <h2 class="section-title">Practitioner <em>intelligence.</em></h2>
-    </div>
+  <div class="reveal">
+    <div class="section-eyebrow">Insights</div>
+    <h2 class="section-title">Practitioner <em>intelligence.</em></h2>
   </div>
 
-  <div class="reveal" style="max-width: 800px; margin: 0 auto; text-align: center; padding: 0 0 4rem;">
-    <p class="section-body" style="margin-bottom: 3rem;">
-      The Practitioner Intelligence Series is a growing library of articles at the intersection
-      of domain expertise, emerging technology, and organizational performance.
-      Written by someone who has lived it — not theorized about it.
-    </p>
+  <p class="insights-intro reveal">
+    The Practitioner Intelligence Series — direct, experience-based writing on risk,
+    technology, identity, and the organizations that sit between them.
+    Written by someone who has lived it, not theorized about it.
+  </p>
 
-    <!-- Article list -->
-    <div style="text-align: left; margin-bottom: 3rem; border-top: 1px solid rgba(26,43,60,0.15); padding-top: 2rem;">
+  <div class="articles-grid reveal">
 
-      <!-- Edition 01 - Live -->
-      <div style="margin-bottom: 2rem; padding-bottom: 2rem; border-bottom: 1px solid rgba(26,43,60,0.1);">
-        <div class="section-eyebrow" style="margin-bottom: 0.5rem;">Edition 01</div>
-        <div class="service-title" style="margin-bottom: 0.5rem;">The Hell With It</div>
-        <p class="section-body" style="font-size: 0.95rem;">How I almost abandoned the brand before it started — and what I learned about conviction when the first person you trust doesn't get it.</p>
+    <a href="https://tectiq.substack.com" target="_blank" class="article-card">
+      <img src="article-01.png" alt="The Hell With It" class="article-card-image"/>
+      <div class="article-card-body">
+        <div class="article-card-edition">Edition 01 &nbsp;·&nbsp; Live Now</div>
+        <div class="article-card-title">The Hell With It</div>
+        <div class="article-card-excerpt">How I almost abandoned the brand before it started — and what I learned about conviction when the first person you trust doesn't get it.</div>
       </div>
-
-      <!-- Edition 02 - Coming Wednesday -->
-      <div style="margin-bottom: 2rem; padding-bottom: 2rem; border-bottom: 1px solid rgba(26,43,60,0.1);">
-        <div class="section-eyebrow" style="margin-bottom: 0.5rem;">Edition 02 &nbsp;·&nbsp; Coming Wednesday</div>
-        <div class="service-title" style="margin-bottom: 0.5rem;">The Ceiling Came Off</div>
-        <p class="section-body" style="font-size: 0.95rem;">What happens when a skeptic who refused to touch AI walks into a mountain in Switzerland — and walks out unable to stop building.</p>
-      </div>
-
-      <!-- Edition 03 - Coming Soon -->
-      <div style="margin-bottom: 2rem; padding-bottom: 2rem; border-bottom: 1px solid rgba(26,43,60,0.1); opacity: 0.6;">
-        <div class="section-eyebrow muted" style="margin-bottom: 0.5rem;">Edition 03 &nbsp;·&nbsp; Coming Soon</div>
-        <div class="service-title" style="margin-bottom: 0.5rem;">The Adoption Paradox</div>
-        <p class="section-body" style="font-size: 0.95rem;">Why the best tools die inside good organizations — and what's really happening in the room when they do.</p>
-      </div>
-
-      <!-- Edition 04 - Coming Soon -->
-      <div style="margin-bottom: 0; opacity: 0.6;">
-        <div class="section-eyebrow muted" style="margin-bottom: 0.5rem;">Edition 04 &nbsp;·&nbsp; Coming Soon</div>
-        <div class="service-title" style="margin-bottom: 0.5rem;">What 10,000 Submissions Taught Me</div>
-        <p class="section-body" style="font-size: 0.95rem;">The problem was never volume. It was what volume does to human judgment.</p>
-      </div>
-
-    </div>
-
-    <!-- Substack CTA -->
-    <a href="https://tectiq.substack.com" target="_blank" class="hero-cta">
-      Read &amp; Subscribe on Substack &nbsp;→
     </a>
 
-    <p class="section-eyebrow" style="margin-top: 1.5rem;">
-      New editions publish every Wednesday.
-    </p>
+    <a href="https://tectiq.substack.com" target="_blank" class="article-card">
+      <img src="article-02.png" alt="The Ceiling Came Off" class="article-card-image"/>
+      <div class="article-card-body">
+        <div class="article-card-edition">Edition 02 &nbsp;·&nbsp; Live Now</div>
+        <div class="article-card-title">The Ceiling Came Off</div>
+        <div class="article-card-excerpt">What happens when a skeptic who refused to touch AI walks into a mountain in Switzerland — and walks out unable to stop building.</div>
+      </div>
+    </a>
+
+    <a href="https://tectiq.substack.com" target="_blank" class="article-card">
+      <img src="article-03.png" alt="The Chameleon" class="article-card-image"/>
+      <div class="article-card-body">
+        <div class="article-card-edition">Edition 03 &nbsp;·&nbsp; Coming Soon</div>
+        <div class="article-card-title">The Chameleon</div>
+        <div class="article-card-excerpt">What I learned about identity, adaptation, and the difference between wearing a costume and losing yourself in it.</div>
+      </div>
+    </a>
+
+    <div class="article-card coming-soon">
+      <img src="article-04.png" alt="The Adoption Paradox" class="article-card-image"/>
+      <div class="article-card-body">
+        <div class="article-card-edition">Edition 04 &nbsp;·&nbsp; Coming Soon</div>
+        <div class="article-card-title">The Adoption Paradox</div>
+        <div class="article-card-excerpt">It's not that organizations resist innovation. It's that they're designed to exhaust the people who carry it.</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="articles-cta reveal">
+    <a href="https://tectiq.substack.com" target="_blank" class="articles-cta-btn">
+      Read &amp; Subscribe on Substack &nbsp;&rarr;
+    </a>
+    <p class="articles-cta-note">New editions publish every other Wednesday at 8:30am ET</p>
   </div>
 </section>
 
@@ -1028,12 +1020,11 @@
       If you're a senior leader navigating a complex challenge at the intersection
       of risk, technology, and organizational performance — we'd like to hear from you.
     </p>
-    <br/>
     <div class="contact-detail">
       <div class="contact-item">
         <div class="contact-item-label">Email</div>
         <div class="contact-item-value">
-          <a href="/cdn-cgi/l/email-protection#b5dcdbd3daf5c1d0d6c1dcc4d2c7dac0c59bd6dad8"><span class="__cf_email__" data-cfemail="b9d0d7dfd6f9cddcdacdd0c8decbd6ccc997dad6d4">[email&#160;protected]</span></a>
+          <a href="mailto:info@tectiqgroup.com">info@tectiqgroup.com</a>
         </div>
       </div>
       <div class="contact-item">
@@ -1051,12 +1042,14 @@
     <div class="contact-right-title">
       Not sure if TECTIQ is the right fit?
     </div>
-    <div class="contact-right-body">
-      Start with the Insights series. If what you read makes you think
-      "this person understands my world" — that's probably a good sign.
-      The work we do together starts with a conversation, not a proposal.
-    </div>
-    <a href="/cdn-cgi/l/email-protection#8ce5e2eae3ccf8e9eff8e5fdebfee3f9fca2efe3e1" class="contact-cta">Start a Conversation &rarr;</a>
+    <p class="contact-right-body">
+      Start with the Practitioner Intelligence Series on Substack. If the writing resonates —
+      if you find yourself recognizing the problems, the frustrations, and the possibilities —
+      then we're probably speaking the same language.
+    </p>
+    <a href="https://tectiq.substack.com" target="_blank" class="hero-cta primary">
+      Read the Series &nbsp;&rarr;
+    </a>
   </div>
 </section>
 
@@ -1072,20 +1065,48 @@
   </div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
   // Scroll reveal
   const reveals = document.querySelectorAll('.reveal');
+  reveals.forEach(el => el.classList.add('animate'));
+
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry, i) => {
       if (entry.isIntersecting) {
-        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        setTimeout(() => entry.target.classList.add('visible'), i * 60);
         observer.unobserve(entry.target);
       }
     });
-  }, { threshold: 0.1 });
+  }, { threshold: 0.08 });
+
   reveals.forEach(el => observer.observe(el));
 
-  // Smooth nav highlight
-  const sections = document.querySelectorAll('section[id], div[id]');
-  const navLinks = document.querySelectorAll('.nav-links a');
+  // Nav scroll effect
   window.addEventListener('scroll', () => {
+    const nav = document.querySelector('nav');
+    if (window.scrollY > 60) {
+      nav.style.padding = '0.9rem 4rem';
+      nav.style.background = 'rgba(10,22,40,0.98)';
+    } else {
+      nav.style.padding = '1.2rem 4rem';
+      nav.style.background = 'rgba(10,22,40,0.92)';
+    }
+  });
+
+  // Active nav link
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 120) current = s.getAttribute('id');
+    });
+    navLinks.forEach(a => {
+      a.style.color = a.getAttribute('href') === '#' + current
+        ? 'var(--warm-white)' : '';
+    });
+  });
+</script>
+</body>
+</html>
